@@ -1,0 +1,7 @@
+#!/bin/bash
+
+output="$1";
+sed "s/’/'/g;s/[“”]/\"/g;s/[^a-zA-Z0-9\.,'\"]/ /g;" |
+text2wave -f 13000 -scale 2 |
+ffmpeg -i pipe:0 -acodec libgsm_ms -ar 8000 -ab 13000 -ac 1 -f wav "$output";
+#ffmpeg -i pipe:0 -codec:a libmp3lame -ac 1 -qscale:a 9 "${epub}.mp3";
