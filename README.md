@@ -1,6 +1,6 @@
 # text2gsm
 Generate audiobooks from text taking minimal disk space!
-- Use with "html2text" and "epub2text" to generate audiobooks!
+- Use with "html2text", "epub2text", "pdftotext" or "calibre" to generate audiobooks!
 - Uses compression "GSM" suitable for voice and produces twice smaller files than "lamemp3"!
 - Uses widely available text-to-speech alogirthm "festival"!
 
