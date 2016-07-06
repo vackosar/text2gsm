@@ -16,4 +16,4 @@ Generate audiobooks from text taking minimal disk space!
 
 ## Example
 
-https://github.com/vackosar/text2gsm/blob/master/us-constitution.txt.gsm.wav
+https://raw.githubusercontent.com/vackosar/text2gsm/master/us-constitution.txt.gsm.wav
