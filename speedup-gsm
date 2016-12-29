@@ -1,0 +1,2 @@
+#!/bin/sh
+cat /dev/null | ffmpeg -i "$1"  -acodec libgsm_ms -ar 8000 -ab 13000 -ac 1 -f wav -strict -2 -filter:a "atempo=2.0" -vn "$(echo "$1" |sed -e 's/\([^\.]*\)\(.*\)/\1-2x\2/')"; 
