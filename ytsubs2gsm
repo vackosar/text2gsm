@@ -3,7 +3,9 @@ set -x
 subs="$(youtube-dl "$1" --write-auto-sub --skip-download -o "$2"|grep 'Writing video subtitles to: ' |sed 's/[^:]*: \(.*\)/\1/')";
 cat "$subs" |
         sed -e 's/<[^>]*>//g;/^[0-9]/d;/^\s*$/d' |
-	uniq \
+	uniq |
+	grep -A5000 -m1 -e '##' |
+	tail -n +2 \
 	> "$subs.txt";
 if [ ! -e "$subs" ]; then
 	echo "There was some problem downloading subs.";

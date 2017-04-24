@@ -1,2 +1,2 @@
 #!/bin/sh
-cat /dev/null | ffmpeg -i "$1" -strict -2 -filter:a "atempo=2.0" -vn "$(echo "$1" |sed -e 's/\([^\.]*\)\(.*\)/\1-2x\2/')"; 
+cat /dev/null | ffmpeg -i "$1" -strict -2 -filter:a "atempo=2.0" -vn "$(echo "$1" |sed -e 's/\([^\.]*\)\(.*\)/\1-2x\2/')" -loglevel panic;

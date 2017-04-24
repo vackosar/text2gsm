@@ -1,4 +1,4 @@
 #!/bin/sh
 input="$1";
 output="$(echo "$input"|sed 's/\.[^\.]*$/.gsm.wav/')";
-ffmpeg -i "$input" -acodec libgsm_ms -ar 8000 -ab 13000 -ac 1 -f wav "$output";
+ffmpeg -i "$input" -acodec libgsm_ms -ar 8000 -ab 13000 -ac 1 -af "volume=1.5" -f wav "$output";
