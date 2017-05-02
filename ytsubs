@@ -1,0 +1,16 @@
+#!/bin/sh
+set -x
+subs="$(youtube-dl "$1" --write-auto-sub --skip-download |grep 'Writing video subtitles to: ' |sed 's/[^:]*: \(.*\)/\1/')";
+if [ ! -e "$subs" ]; then
+	echo "There was some problem downloading subs.";
+	exit 1;
+fi
+cat "$subs" |
+        sed -e 's/<[^>]*>//g;/^[0-9]/d;/^\s*$/d' |
+	uniq |
+	grep -A5000 -m1 -e '##' |
+	tail -n +2 |
+	tr '\n' ' ' |
+	{ echo "text="; cat -; } 
+#	curl -X POST -d @/dev/fd/0 http://bark.phon.ioc.ee/punctuator
+#rm "$subs";
