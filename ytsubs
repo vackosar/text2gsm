@@ -10,7 +10,5 @@ cat "$subs" |
 	uniq |
 	grep -A5000 -m1 -e '##' |
 	tail -n +2 |
-	tr '\n' ' ' |
-	{ echo "text="; cat -; } 
-#	curl -X POST -d @/dev/fd/0 http://bark.phon.ioc.ee/punctuator
-#rm "$subs";
+	tr '\n' ' '
+rm "$subs";
