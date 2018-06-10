@@ -1,0 +1,5 @@
+#!/bin/bash
+set -xeuo pipefail
+file="$1";
+cat /dev/null |
+  ffmpeg -loglevel quiet -y -i "$file" -c libvorbis -ac 1 -ar 8000 "$file.oga"  
