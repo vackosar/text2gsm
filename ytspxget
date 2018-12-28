@@ -1,0 +1,24 @@
+#!/bin/bash
+set -eux -o pipefail
+
+# Install
+# sudo apt install ffmpeg
+# sudo pip install --upgrade youtube_dl
+# git clone ???spxfy
+
+url="$1";
+
+sshToSrv() {
+  ssh -C -p "$port" "$server" "$@";
+}
+
+
+name="$(sshToSrv "youtube-dl --get-title $url |sed 's/ /-/g;'|cut -c 1-30")";
+sshToSrv "youtube-dl -x -f worst --output $name --exec 'spxfy {}; rm {}' $url & disown %%;";
+while true; do
+  scp -C -P "$port" "$server":"$name*.spx" . \
+    && sshToSrv "rm $name*.spx" \
+    && exit 0 \
+    || sleep 10
+done;
+exit 1

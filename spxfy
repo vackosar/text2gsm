@@ -1,4 +1,5 @@
 #!/bin/sh
 set -uxe;
-file="$1";
-cat /dev/null |ffmpeg -i "${file}" -acodec libspeex -ar 8000 -ab 4000 -vbr 1 -compression_level 10 -dtx 1 -ac 1 -af "volume=1.5" -y "${file}.spx"
+input="$1";
+output="$(echo "$input"|sed 's/\.[^\.]*$/.spx')";  
+cat /dev/null |ffmpeg -i "${input}" -acodec libspeex -ar 8000 -ab 4000 -vbr 1 -compression_level 10 -dtx 1 -ac 1 -af "volume=1.5" -y "${output}"
