@@ -14,7 +14,7 @@ sshToSrv() {
 
 
 name="$(sshToSrv "youtube-dl --get-title $url |sed 's/ /-/g;'|cut -c 1-30")";
-sshToSrv "youtube-dl -x -f worst --output $name --exec 'spxfy {}; rm {}' $url & disown %%;";
+sshToSrv "youtube-dl -x -f worst --output $name'.%(ext)s' --exec 'spxfy {}' $url 1>ytspxget.log 2>ytspxget.log & disown %%;";
 while true; do
   scp -C -P "$port" "$server":"$name*.spx" . \
     && sshToSrv "rm $name*.spx" \
