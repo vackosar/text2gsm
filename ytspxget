@@ -12,13 +12,8 @@ sshToSrv() {
   ssh -C -p "$port" "$server" "$@";
 }
 
-
-name="$(sshToSrv "youtube-dl --get-title $url |sed 's/ /-/g;'|cut -c 1-30")";
-sshToSrv "youtube-dl -x -f worst --output $name'.%(ext)s' --exec 'spxfy {}' $url 1>ytspxget.log 2>ytspxget.log & disown %%;";
-while true; do
-  scp -C -P "$port" "$server":"$name*.spx" . \
-    && sshToSrv "rm $name*.spx" \
-    && exit 0 \
-    || sleep 10
-done;
-exit 1
+name="$(sshToSrv "youtube-dl --get-title $url |sed 's/[^a-zA-Z0-9]/-/g;'|cut -c 1-30")";
+downloadNEncode="
+  youtube-dl --output - --exec 'spxfy {}' $url |
+  ffmpeg -i pipe:0 -acodec libspeex -ar 8000 -ab 4000 -vbr 1 -compression_level 10 -dtx 1 -ac 1 -af "volume=1.5" -y -f spx -"
+sshToSrv "$downloadNEncode" > "$name.spx"
