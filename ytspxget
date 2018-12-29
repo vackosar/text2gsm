@@ -9,11 +9,11 @@ set -eux -o pipefail
 url="$1";
 
 sshToSrv() {
-  ssh -C -p "$port" "$server" "$@";
+  ssh -C -p "$homePort" "$homeServer" "$@";
 }
 
 name="$(sshToSrv "youtube-dl --get-title $url |sed 's/[^a-zA-Z0-9]/-/g;'|cut -c 1-30")";
 downloadNEncode="
   youtube-dl --output - --exec 'spxfy {}' $url |
   ffmpeg -i pipe:0 -acodec libspeex -ar 8000 -ab 4000 -vbr 1 -compression_level 10 -dtx 1 -ac 1 -af "volume=1.5" -y -f spx -"
-sshToSrv "$downloadNEncode" > "$name.spx"
+sshToSrv "$downloadNEncode" > "$downloadDir/$name.spx"
