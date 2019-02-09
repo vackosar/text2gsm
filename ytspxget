@@ -15,7 +15,7 @@ sshToSrv() {
 name="$(sshToSrv "youtube-dl --get-title $url |sed 's/[^a-zA-Z0-9]/-/g;'|cut -c 1-30")";
 echo "$name";
 downloadNEncode="
-  youtube-dl --output - $url |
+  youtube-dl --output - '$url' |
   ffmpeg -i pipe:0 -acodec libgsm_ms -ar 8000 -ab 13000 -ac 1 -af "volume=1.5" -f wav -";
   #ffmpeg -i pipe:0 -acodec libspeex -ar 8000 -ab 4000 -vbr 1 -compression_level 10 -dtx 1 -ac 1 -af "volume=1.5" -y -f spx -"
 sshToSrv "$downloadNEncode" > "$downloadDir/$name.wav"
