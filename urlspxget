@@ -12,11 +12,4 @@ sshToSrv() {
   ssh -C -p "$homePort" "$homeServer" "$@";
 }
 
-name="$(echo "$url"|sed 's|.*/\([^?]*\)?.*|\1|')";
-echo "$name";
-downloadNEncode="
-  set -x;
-  wget '$url' -O - |
-  ffmpeg -i pipe:0 -acodec libgsm_ms -ar 8000 -ab 13000 -ac 1 -af "volume=1.5" -f wav -";
-  # ffmpeg -i pipe:0 -acodec libspeex -ar 8000 -ab 4000 -vbr 1 -compression_level 10 -dtx 1 -ac 1 -af "volume=1.5" -y -f spx -"
-sshToSrv "$downloadNEncode" > "$downloadDir/$name.wav"
+sshToSrv 'setsid bin/urlspxget "'"$url"'" 1>/dev/null 2>/dev/null &'
