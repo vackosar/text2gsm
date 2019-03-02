@@ -12,4 +12,4 @@ sshToSrv() {
   ssh -C -p "$homePort" "$homeServer" "$@";
 }
 
-sshToSrv 'setsid bin/urlspxget "'"$url"'" 1>/dev/null 2>/dev/null &'
+sshToSrv 'setsid bin/urlspxget-server.sh "'"$url"'" 1>/dev/null 2>/dev/null &'
