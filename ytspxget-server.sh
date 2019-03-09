@@ -12,7 +12,7 @@ sshToSrv() {
   ssh -C -p "$homePort" "$homeServer"; # "$@";
 }
 
-name="$(youtube-dl --get-title "$url" |sed 's/[^a-zA-Z0-9]/-/g;'|cut -c 1-30)";
+name="$(youtube-dl --get-title "$url" |sed 's/[^a-zA-Z0-9]/-/g;'|cut -c 1-210)";
 cat /dev/null |youtube-dl --output - "$url" |
   ffmpeg -i pipe:0 \
     -ac 1 -af "volume=1.5" -af lowpass=3000,highpass=300 \
