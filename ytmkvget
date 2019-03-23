@@ -1,0 +1,15 @@
+#!/bin/bash
+set -eux -o pipefail
+
+# Install
+# sudo apt install ffmpeg
+# sudo pip install --upgrade youtube_dl
+# git clone ???spxfy
+
+url="$1";
+
+sshToSrv() {
+  ssh -C -p "$homePort" "$homeServer" "$@";
+}
+
+sshToSrv 'setsid bin/ytmkvget-server.sh "'"$url"'" 1>/dev/null 2>/dev/null &'
