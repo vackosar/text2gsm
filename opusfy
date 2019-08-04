@@ -1,0 +1,8 @@
+#!/bin/sh
+set -uxe;
+input="$1";
+output="$(echo "$input"|sed 's/\.[^\.]*$/.opus/')";  
+cat /dev/null |\
+	ffmpeg -i "${input}" \
+	-c:a libopus -b:a 6K -ac 1 \
+	-af "volume=1.5" -y "${output}";

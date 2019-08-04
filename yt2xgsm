@@ -1,5 +1,0 @@
-#!/bin/sh
-set -x
-file="$(youtube-dl "$1" -x |grep '\[ffmpeg\] Destination:' |sed 's/[^:]*: \(.*\)/\1/')";
-speedup-gsm "$file";
-rm "$file";
